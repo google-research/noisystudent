@@ -2,12 +2,16 @@
 
 ## Overview
 
-NoisyStudent is a semi-supervised learning method which achieves 88.4% top-1
-accuracy on ImageNet (SOTA). NoisyStudent is based on the self-training
-framework with noise injected to the student model.
+NoisyStudent is a semi-supervised learning method which achieves 88.4% top-1 accuracy on ImageNet (SOTA)
+and surprising gains on robustness and adversarial benchmarks.
+NoisyStudent is based on the self-training framework and trained with 4 simple steps:
+1. Train a classifier on ImageNet (teacher).
+2. Infer labels on a much larger unlabeled dataset.
+3. Train a larger classifier on the combined set, adding noise (noisy student).
+4. Go to step 2, with student as teacher
 
-We are releasing the training code runnable on SVHN. For ImageNet, we are
-experimenting with public image datasets as unlabeled data and will release the
+To allow the community to quickly trying out ideas, we first release the training code runnable on SVHN.
+For ImageNet, we are experimenting with public image datasets as unlabeled data and will release the
 training code soon.
 
 For a detailed description of technical details and experimental results, please
