@@ -2,7 +2,7 @@
 
 ## Overview
 
-NoisyStudent is a semi-supervised learning method which achieves 88.4% top-1 accuracy on ImageNet (SOTA) and surprising gains on robustness and adversarial benchmarks.
+[NoisyStudent](https://arxiv.org/abs/1911.04252) is a semi-supervised learning method which achieves 88.4% top-1 accuracy on ImageNet (SOTA) and surprising gains on robustness and adversarial benchmarks.
 NoisyStudent is based on the self-training framework and trained with 4 simple steps:
 1. Train a classifier on labeled data (teacher).
 2. Infer labels on a much larger unlabeled dataset.
@@ -31,7 +31,6 @@ You can also use the colab script [noisystudent_svhn.ipynb](https://github.com/g
 
 ## Bibtex 
 
-[NoisyStudent](https://arxiv.org/abs/1911.04252):
 ```
 @article{xie2019self,
   title={Self-training with Noisy Student improves ImageNet classification},
