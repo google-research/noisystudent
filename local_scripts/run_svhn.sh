@@ -37,7 +37,7 @@ python main.py \
     --teacher_model_name=efficientnet-b0 \
     --teacher_model_path=ckpt/teacher_ckpt/model.ckpt \
     --model_dir=./ckpt/exp_1 \
-    --unlabel_data_dir=./data/proc/unlabeled
+    --unlabel_data_dir=./data/svhn/proc/unlabeled
 
 # Eval
 python main.py \
