@@ -29,34 +29,14 @@ bash local_scripts/run_svhn.sh
 
 You can also use the colab script [noisystudent_svhn.ipynb](https://github.com/google-research/noisystudent/blob/master/noisystudent_svhn.ipynb) to try the method on free Colab GPUs. 
 
-## Relevant Papers 
+## Bibtex 
 
-NoisyStudent
+[NoisyStudent](https://arxiv.org/abs/1911.04252):
 ```
 @article{xie2019self,
   title={Self-training with Noisy Student improves ImageNet classification},
   author={Xie, Qizhe and Hovy, Eduard and Luong, Minh-Thang and Le, Quoc V},
   journal={arXiv preprint arXiv:1911.04252},
-  year={2019}
-}
-```
-
-EfficientNet: Our backbone model 
-```
-@article{tan2019efficientnet,
-  title={Efficientnet: Rethinking model scaling for convolutional neural networks},
-  author={Tan, Mingxing and Le, Quoc V},
-  journal={arXiv preprint arXiv:1905.11946},
-  year={2019}
-}
-```
-
-RandAugment: An effective data augmentation noise 
-```
-@article{cubuk2019randaugment,
-  title={RandAugment: Practical data augmentation with no separate search},
-  author={Cubuk, Ekin D and Zoph, Barret and Shlens, Jonathon and Le, Quoc V},
-  journal={arXiv preprint arXiv:1909.13719},
   year={2019}
 }
 ```
