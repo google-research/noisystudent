@@ -67,14 +67,12 @@ python main.py \
     --model_dir=./ckpt/exp_1
 ```
 
-You can also use the colab script [noisy_student_svhn.ipynb](https://github.com/google-research/noisystudent/blob/master/noisy_student_svhn.ipynb) to try the method on free Colab GPUs. 
+You can also use the colab script [noisystudent_svhn.ipynb](https://github.com/google-research/noisystudent/blob/master/noisystudent_svhn.ipynb) to try the method on free Colab GPUs. 
 
 ## ImageNet Results
 
 NoisyStudent leads to significant improvements across model sizes.
 <p align="center"> <img src="./figure/plot_across_size.jpeg" width="50%" /> </p>
-
-## Models Trained on ImageNet
 
 Here are models trained on ImageNet with JFT-300M unlabeled data:
 |   | B0 | B1 | B2 | B3 | B4 | B5 | B6 | B7 | L2-475 | L2 
@@ -83,8 +81,7 @@ NoisyStudent + RA |78.8% ([ckpt](https://storage.googleapis.com/cloud-tpu-checkp
 
 <sup>* L2-475 means the same L2 architecture with input image size 475 (Please set "--input_image_size=475" for using this checkpoint). </sup>
 
-
-
+Checkpoints converted to PyTorch are available [here](https://github.com/rwightman/gen-efficientnet-pytorch).
 
 ## Relevant Papers 
 

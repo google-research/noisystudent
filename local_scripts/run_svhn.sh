@@ -32,6 +32,7 @@ python main.py \
     --augment_name=v1 \
     --randaug_mag=5 \
     --final_base_lr=0.0002 \
+    --weight_decay=1e-4 \
     --label_data_dir=./data/svhn/proc \
     --teacher_model_name=efficientnet-b0 \
     --teacher_model_path=ckpt/teacher_ckpt/model.ckpt \
