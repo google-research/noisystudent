@@ -684,7 +684,7 @@ def main(unused_argv):
     FLAGS.num_train_images = task_info.get_num_train_images(FLAGS.task_name)
   if FLAGS.num_eval_images is None:
     FLAGS.num_eval_images = task_info.get_num_eval_images(FLAGS.task_name)
-  if FLAGS.num_test_images is None:
+  if FLAGS.num_test_images is None and FLAGS.task_name != 'imagenet':
     FLAGS.num_test_images = task_info.get_num_test_images(FLAGS.task_name)
 
   steps_per_epoch = (FLAGS.num_train_images /
@@ -783,8 +783,6 @@ def main(unused_argv):
           input_fn=train_data.input_fn,
           max_steps=FLAGS.train_last_step_num,
           hooks=[])
-    tf.logging.info('final result: dev acc: {:.4f}, test acc: {:.4f}'.format(
-        best_dev_acc, test_acc))
   elif FLAGS.mode == 'eval':
     input_fn_mapping = {}
     for subset in ['dev', 'test']:
