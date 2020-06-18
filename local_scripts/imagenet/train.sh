@@ -17,7 +17,7 @@
 model_dir=./ckpt/imagenet
 label_data_dir=
 unlabel_data_dir=
-model_name=efficientnet-b0
+model_name=
 teacher_model_path=
 rm -r ${model_dir}
 
@@ -35,42 +35,42 @@ python main.py \
     --teacher_softmax_temp=1 \
 
 # Additional config for EfficientNet-B0
-#     --unlabel_ratio=1
+#     --unlabel_ratio=1 \
 #     --train_ratio=2
 
 # Additional config for EfficientNet-B1
-#     --unlabel_ratio=3
+#     --unlabel_ratio=3 \
 #     --train_ratio=2
 
 # Additional config for EfficientNet-B2
-#     --unlabel_ratio=3
-#     --train_ratio=2
-#     --augment_name=v1
+#     --unlabel_ratio=3 \
+#     --train_ratio=2 \
+#     --augment_name=v1 \
 #     --randaug_mag=6
 
 # Additional config for EfficientNet-B3
-#     --unlabel_ratio=3
-#     --train_ratio=2
+#     --unlabel_ratio=3 \
+#     --train_ratio=2 \
 #     --augment_name=v1
-#     --randaug_mag=12
+#     --randaug_mag=12 \
 
 # Additional config for EfficientNet-B4
-#     --unlabel_ratio=3
-#     --train_ratio=2
-#     --augment_name=v1
-#     --randaug_mag=15
+#     --unlabel_ratio=3 \
+#     --train_ratio=2 \
+#     --augment_name=v1 \
+#     --randaug_mag=15 \
 
 # Additional config for EfficientNet-B5
-#     --unlabel_ratio=3
-#     --augment_name=v1
-#     --randaug_mag=18
+#     --unlabel_ratio=3 \
+#     --augment_name=v1 \
+#     --randaug_mag=18 \
 
 # Additional config for EfficientNet-B6
-#     --unlabel_ratio=3
-#     --augment_name=v1
-#     --randaug_mag=24
+#     --unlabel_ratio=3 \
+#     --augment_name=v1 \
+#     --randaug_mag=24 \
 
 # Additional config for EfficientNet-B7
-#     --unlabel_ratio=3
-#     --augment_name=v1
-#     --randaug_mag=27
+#     --unlabel_ratio=3 \
+#     --augment_name=v1 \
+#     --randaug_mag=27 \

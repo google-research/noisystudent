@@ -32,6 +32,7 @@ import efficientnet_builder
 import data_input
 import utils
 import task_info
+import predict_label
 from tensorflow.core.protobuf import rewriter_config_pb2
 from tensorflow.python.estimator import estimator
 
@@ -802,7 +803,10 @@ def main(unused_argv):
           input_fn=input_fn_mapping[subset],
           steps=num_images // FLAGS.eval_batch_size)
       tf.logging.info('%s, results: %s', subset, eval_results)
-
+  elif FLAGS.mode == 'predict':
+      predict_label.run_prediction(est)
+  else:
+      assert False
 
 
 if __name__ == '__main__':

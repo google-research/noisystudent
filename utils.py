@@ -389,3 +389,92 @@ def init_from_ckpt(scaffold_fn):
   return scaffold_fn
 
 
+def get_filename(data_dir, file_prefix, shard_id, num_shards):
+  filename = os.path.join(
+      data_dir,
+      '%s-%05d-of-%05d' % (file_prefix, shard_id, num_shards))
+  tf.logging.info('processing %s', filename)
+  return filename
+
+
+def get_dst_from_filename(filename, data_type, total_replicas=1, worker_id=0, get_label=False):
+  input_files = [filename]
+  if FLAGS.data_type == 'tfrecord':
+    buffer_size = 8 * 1024 * 1024
+    dst = tf.data.TFRecordDataset(input_files, buffer_size=buffer_size)
+    dst = dst.shard(total_replicas, worker_id)
+    dst = dst.map(parse_tfrecord, num_parallel_calls=16)
+  else:
+    assert False
+
+  return dst
+
+
+def parse_tfrecord(encoded_example):
+  keys_to_features = {
+      'image/encoded': tf.FixedLenFeature((), tf.string),
+  }
+  parsed = tf.parse_single_example(encoded_example, keys_to_features)
+  return parsed
+
+
+def decode_raw_image(contents, channels=0):
+  '''Decodes an image, ensuring that the result is height x width x channels.'''
+  image = tf.image.decode_image(contents, channels)
+
+  # Note: GIFs are decoded with 4 dimensions [num_frames, height, width, 3]
+  image = tf.cond(
+      tf.equal(tf.rank(image), 4),
+      lambda: image[0, :],  # Extract first frame
+      lambda: image)
+  image_channel_shape = tf.shape(image)[2]
+  image = tf.cond(
+      tf.equal(image_channel_shape, 1),
+      lambda: tf.image.grayscale_to_rgb(image), lambda: image)
+  image.set_shape([None, None, 3])
+
+  return image
+
+
+def get_reassign_filename(data_dir, file_prefix, shard_id, num_shards, worker_id):
+  filename = os.path.join(
+      data_dir,
+      '%s-%d-%05d-of-%05d' % (file_prefix, worker_id, shard_id, num_shards))
+  tf.logging.info('writing to %s', filename)
+  return filename
+
+def get_uid_list():
+    # get the mapping from class index to class name
+    return [str(i) for i in range(FLAGS.num_label_classes)]
+
+
+def label_dataset(worker_id, prediction_dir, shard_id, num_shards):
+  def label_dst_parser(value):
+    keys_to_features = {
+        'probabilities': tf.FixedLenFeature([FLAGS.num_label_classes], tf.float32),
+        'classes': tf.FixedLenFeature([], tf.int64),
+    }
+    parsed = tf.parse_single_example(value, keys_to_features)
+    features = {}
+    features['probabilities'] = tf.cast(
+        tf.reshape(parsed['probabilities'], shape=[FLAGS.num_label_classes]), dtype=tf.float32)
+    features['classes'] = tf.cast(
+        tf.reshape(parsed['classes'], shape=[]), dtype=tf.int32)
+    return features
+  input_file = os.path.join(
+      prediction_dir,
+      'train-info-%.5d-of-%.5d-%.5d' % (shard_id, num_shards, worker_id))
+  dst = tf.data.Dataset.list_files(input_file)
+  def fetch_dataset(filename):
+    buffer_size = 8 * 1024 * 1024
+    dataset = tf.data.TFRecordDataset(filename, buffer_size=buffer_size)
+    return dataset
+  dst = dst.apply(
+      tf.data.experimental.parallel_interleave(
+          fetch_dataset, cycle_length=1))
+  dst = dst.apply(
+      tf.data.experimental.map_and_batch(
+          label_dst_parser, batch_size=1,
+          num_parallel_batches=16))
+  dst = dst.prefetch(tf.data.experimental.AUTOTUNE)
+  return dst
