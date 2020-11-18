@@ -38,7 +38,7 @@ bash local_scripts/svhn/filter_unlabel.sh 1
 bash local_scripts/svhn/filter_unlabel.sh 0
 
 # Training & Eval the stored predictions.
-bash local_scripts/svhn/run_offline.sh
+bash local_scripts/svhn/svhn_offline.sh
 ```
 
 If you get a better model, you can use the model to predict pseudo-labels on the filtered data.
@@ -76,7 +76,7 @@ bash local_scripts/imagenet/filter_unlabel.sh 1
 bash local_scripts/imagenet/filter_unlabel.sh 0
 
 # Training & Eval using the filtered data.
-bash local_scripts/imagenet/run_offline.sh
+bash local_scripts/imagenet/train_offline.sh
 bash local_scripts/imagenet/eval.sh
 ```
 
