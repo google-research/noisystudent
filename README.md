@@ -94,7 +94,7 @@ bash local_scripts/imagenet/reassign.sh
 ```
 @article{xie2019self,
   title={Self-training with Noisy Student improves ImageNet classification},
-  author={Xie, Qizhe and Hovy, Eduard and Luong, Minh-Thang and Le, Quoc V},
+  author={Xie, Qizhe and Luong, Minh-Thang and Hovy, Eduard and Le, Quoc V},
   journal={arXiv preprint arXiv:1911.04252},
   year={2019}
 }
